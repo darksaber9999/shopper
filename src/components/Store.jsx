@@ -3,7 +3,9 @@ import React from "react";
 const Store = () => {
 
   return (
-    <span>This is the Store</span>
+    <div className="store-window">
+      <span>This is the Store</span>
+    </div>
   )
 }
 

@@ -5,10 +5,28 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 .App {
   display: flex;
   flex-direction: column;
   text-align: center;
+  height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25px;
+}
+
+.component-window {
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.cart-window {
+  width: 300px;
 }

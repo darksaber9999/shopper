@@ -5,21 +5,42 @@ import AuthWindow from "../components/AuthWindow";
 import Shipping from "../components/Shipping";
 import Payment from "../components/Payment";
 import Confirm from "../components/Confirm";
+import { INITIAL_DISPLAY } from "../constants";
 
 class ShopperWindow extends React.Component {
-
+  state = {
+    display: INITIAL_DISPLAY,
+  }
 
   render() {
+    const { display: { store, cart, authWindow, shipping, payment, confirm } } = this.state;
 
     return (
       <>
-        <span>This is the ShopperWindow</span>
-        <Store />
-        <Cart />
-        <AuthWindow />
-        <Shipping />
-        <Payment />
-        <Confirm />
+        <header>
+          <span>Shopper</span>
+          <span>Navigation</span>
+        </header>
+        <div className="component-window">
+          {store ?
+            <Store />
+            : null}
+          {authWindow ?
+            <AuthWindow />
+            : null}
+          {shipping ?
+            <Shipping />
+            : null}
+          {payment ?
+            <Payment />
+            : null}
+          {confirm ?
+            <Confirm />
+            : null}
+          {cart ?
+            <Cart />
+            : null}
+        </div>
       </>
     )
   }
