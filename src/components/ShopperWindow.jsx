@@ -6,11 +6,18 @@ import Shipping from "../components/Shipping";
 import Payment from "../components/Payment";
 import Confirm from "../components/Confirm";
 import { INITIAL_DISPLAY } from "../constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+
 
 class ShopperWindow extends React.Component {
   state = {
     display: INITIAL_DISPLAY,
   }
+
+  toggleDisplay = (name) => this.setState((prevState) => ({ display: { ...prevState.display, [name]: !prevState.display[name] } }));
+
+  toggleCart = () => this.toggleDisplay('cart');
 
   render() {
     const { display: { store, cart, authWindow, shipping, payment, confirm } } = this.state;
@@ -19,7 +26,12 @@ class ShopperWindow extends React.Component {
       <>
         <header>
           <span>Shopper</span>
-          <span>Navigation</span>
+          <span>
+            <FontAwesomeIcon
+              icon={faShoppingCart}
+              onClick={this.toggleCart}
+            />
+          </span>
         </header>
         <div className="component-window">
           {store ?
