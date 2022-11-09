@@ -9,10 +9,11 @@ import { INITIAL_DISPLAY } from "../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
-
 class ShopperWindow extends React.Component {
   state = {
     display: INITIAL_DISPLAY,
+    loading: false,
+    error: false,
   }
 
   toggleDisplay = (name) => this.setState((prevState) => ({ display: { ...prevState.display, [name]: !prevState.display[name] } }));
