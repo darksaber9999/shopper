@@ -1,10 +1,14 @@
 import React from "react";
+import CommerceService from "../services";
 
 const Store = () => {
 
+  const commerce = new CommerceService();
+  commerce.fetchProducts();
+
   return (
     <div className="store-window">
-      <span>This is the Store</span>
+      <span>Store</span>
     </div>
   )
 }
