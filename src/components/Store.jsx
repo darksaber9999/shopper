@@ -1,14 +1,17 @@
 import React from "react";
-import CommerceService from "../services";
+import ItemCard from "./ItemCard";
 
-const Store = () => {
-
-  const commerce = new CommerceService();
-  commerce.fetchProducts();
+const Store = ({ data, loading, error }) => {
 
   return (
     <div className="store-window">
-      <span>Store</span>
+      {!loading ? data.map((item) => (
+        <ItemCard
+          data={item}
+        //key={item.dt}
+        />
+      )) : <div>Loading...</div>}
+      {error && <h3 className="text-danger">Error loading data</h3>}
     </div>
   )
 }
