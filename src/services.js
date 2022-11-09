@@ -24,10 +24,6 @@ class CommerceService {
             category: item.categories[0].name,
             image: item.image,
           }));
-
-          // Remove
-          console.log(data);
-
           success({ response, data });
         } else {
           failure({ error: "Invalid http request" });
