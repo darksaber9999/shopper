@@ -17,6 +17,7 @@ class CommerceService {
         if (response.ok) {
           const json = await response.json();
           const data = json.data.map((item) => ({
+            id: item.id,
             name: item.name,
             description: item.description,
             price: item.price.formatted,

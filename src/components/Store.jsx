@@ -8,7 +8,7 @@ const Store = ({ data, loading, error }) => {
       {!loading ? data.map((item) => (
         <ItemCard
           data={item}
-        //key={item.dt}
+          key={item.id}
         />
       )) : <div>Loading...</div>}
       {error && <h3 className="text-danger">Error loading data</h3>}
