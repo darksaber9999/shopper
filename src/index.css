@@ -46,6 +46,15 @@ header {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  overflow: scroll;
+}
+
+.item-price {
+  margin-right: 10px;
+}
+
+.item-quantity {
+  margin-left: 10px;
 }
 
 .cart-window {
