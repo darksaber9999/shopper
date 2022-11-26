@@ -10,8 +10,8 @@ const Store = ({ data, loading, error }) => {
           data={item}
           key={item.id}
         />
-      )) : <div>Loading...</div>}
-      {error && <h3 className="text-danger">Error loading data</h3>}
+      )) : <div className="loading-screen">Loading...</div>}
+      {error && <h3 className="error-screen text-danger">Error loading data</h3>}
     </div>
   )
 }
