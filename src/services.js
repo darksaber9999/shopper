@@ -13,7 +13,9 @@ class CommerceService {
           redirect: 'follow'
         };
 
-        const response = await fetch(COMMERCE_URL, requestOptions);
+        const productsURL = `${COMMERCE_URL}products`;
+
+        const response = await fetch(productsURL, requestOptions);
         if (response.ok) {
           const json = await response.json();
           const data = json.data.map((item) => ({
@@ -34,6 +36,40 @@ class CommerceService {
       }
     })
   }
+
+  async fetchCategories() {
+    return new Promise(async (success, failure) => {
+      try {
+        const myHeaders = new Headers();
+        myHeaders.append("X-Authorization", `${COMMERCE_API}`);
+
+        const requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow'
+        };
+
+        const categoriesURL = `${COMMERCE_URL}categories`;
+
+        const response = await fetch(categoriesURL, requestOptions);
+        if (response.ok) {
+          const json = await response.json();
+          const data = json.data.map((item) => ({
+            id: item.id,
+            name: item.name,
+            description: item.description,
+            numProducts: item.products,
+          }));
+          success({ response, data });
+        } else {
+          failure({ error: "Invalid http request" });
+        }
+      } catch (error) {
+        failure(error);
+      }
+    })
+  }
+
 }
 
 export default CommerceService;
