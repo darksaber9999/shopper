@@ -36,7 +36,7 @@ header {
 
 .loading-screen,
 .error-screen {
-  align-self: center;
+  margin: auto;
 }
 
 .store-window,
@@ -48,8 +48,13 @@ header {
 
 .store-window {
   width: 100%;
-  justify-content: center;
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.category-item-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 10px;

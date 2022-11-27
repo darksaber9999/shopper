@@ -1,14 +1,15 @@
 import React from "react";
-import ItemCard from "./ItemCard";
+import CategoryRow from "./CategoryRow";
 
-const Store = ({ data, loading, error }) => {
+const Store = ({ data, loading, error, categories }) => {
 
   return (
     <div className="store-window">
-      {!loading ? data.map((item) => (
-        <ItemCard
-          data={item}
+      {!loading ? categories.filter((cat) => cat.numProducts > 0).map((item) => (
+        <CategoryRow
+          category={item.name}
           key={item.id}
+          data={data}
         />
       )) : <div className="loading-screen">Loading...</div>}
       {error && <h3 className="error-screen text-danger">Error loading data</h3>}

@@ -4,7 +4,7 @@ const ItemCard = ({ data }) => {
   const { name, price, quantity, image, category } = data;
 
   return (
-    <div className="item-card">
+    <div className="item-card" data-category={category}>
       <img src={image.url} alt="product" className="item-image" />
       <h3 className="item-name">{name}</h3>
       <p className="item-info-wrapper">

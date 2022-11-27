@@ -17,6 +17,7 @@ class ShopperWindow extends React.Component {
     loading: false,
     error: false,
     data: [],
+    categories: [],
   }
 
   setProductData = () => {
@@ -43,8 +44,28 @@ class ShopperWindow extends React.Component {
     });
   }
 
+  setCategoryData = () => {
+    this.setState({
+      error: false,
+    });
+    commerce.fetchCategories().then((res) => {
+      if (res && res.response.ok) {
+        this.setState({
+          categories: res.data,
+        });
+      }
+    }, (error) => {
+      console.log(error);
+      this.setState({
+        error: true,
+        categories: [],
+      });
+    });
+  }
+
   componentDidMount() {
     this.setProductData();
+    this.setCategoryData();
   }
 
   toggleDisplay = (name) => this.setState((prevState) => ({ display: { ...prevState.display, [name]: !prevState.display[name] } }));
@@ -52,7 +73,7 @@ class ShopperWindow extends React.Component {
   toggleCart = () => this.toggleDisplay('cart');
 
   render() {
-    const { display: { store, cart, authWindow, shipping, payment, confirm }, loading, error, data } = this.state;
+    const { display: { store, cart, authWindow, shipping, payment, confirm }, loading, error, data, categories } = this.state;
 
     return (
       <>
@@ -71,6 +92,7 @@ class ShopperWindow extends React.Component {
               loading={loading}
               data={data}
               error={error}
+              categories={categories}
             />
             : null}
           {authWindow ?

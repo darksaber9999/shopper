@@ -29,7 +29,7 @@ class CommerceService {
           }));
           success({ response, data });
         } else {
-          failure({ error: "Invalid http request" });
+          failure({ error: "Invalid http request, products could not be fetched from server" });
         }
       } catch (error) {
         failure(error);
@@ -62,7 +62,7 @@ class CommerceService {
           }));
           success({ response, data });
         } else {
-          failure({ error: "Invalid http request" });
+          failure({ error: "Invalid http request, categories could not be fetched from server" });
         }
       } catch (error) {
         failure(error);
