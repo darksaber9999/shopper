@@ -56,8 +56,9 @@ header {
 
 .category-item-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 450px));
   gap: 10px;
+  justify-content: center;
 }
 
 .item-image {
