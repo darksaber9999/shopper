@@ -6,9 +6,10 @@ import Shipping from "../components/Shipping";
 import Payment from "../components/Payment";
 import Confirm from "../components/Confirm";
 import CommerceService from "../services";
-import { INITIAL_DISPLAY } from "../constants";
+import { INITIAL_DISPLAY, TEST_USER } from "../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart, faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { checkForDuplicateUser, onlyTextValidation, passwordMatchValidation } from "../validations";
 
 const commerce = new CommerceService();
 class ShopperWindow extends React.Component {
@@ -16,8 +17,12 @@ class ShopperWindow extends React.Component {
     display: INITIAL_DISPLAY,
     loading: false,
     error: false,
+    errorMessage: {},
     data: [],
     categories: [],
+    currentUsers: [
+      TEST_USER,
+    ]
   }
 
   setProductData = () => {
@@ -42,7 +47,7 @@ class ShopperWindow extends React.Component {
         data: [],
       });
     });
-  }
+  };
 
   setCategoryData = () => {
     this.setState({
@@ -61,24 +66,106 @@ class ShopperWindow extends React.Component {
         categories: [],
       });
     });
-  }
+  };
 
   componentDidMount() {
     this.setProductData();
     this.setCategoryData();
-  }
+  };
 
   toggleDisplay = (name) => this.setState((prevState) => ({ display: { ...prevState.display, [name]: !prevState.display[name] } }));
 
   toggleCart = () => this.toggleDisplay('cart');
 
+  toggleAuthWindow = () => this.toggleDisplay('authWindow');
+
+  createEventArray = (e) => {
+    const eventArray = [];
+
+    for (let i = 0; i < (e.target.length - 1); i++) {
+      eventArray.push({ [e.target[i].name]: e.target[i].value });
+    }
+
+    return eventArray;
+  };
+
+  handleValidations = (type, value) => {
+    let errorText;
+    switch (type) {
+      case 'emailAddressLogin':
+      case 'passwordLogin':
+        errorText = undefined;
+        this.setState((prevState) => ({
+          errorMessage: {
+            ...prevState.errorMessage,
+            [`${type}Error`]: errorText,
+          },
+        }));
+        break;
+      case 'emailAddress':
+        errorText = checkForDuplicateUser(value, this.state.currentUsers);
+        this.setState((prevState) => ({
+          errorMessage: {
+            ...prevState.errorMessage,
+            [`${type}Error`]: errorText,
+          },
+        }));
+        break;
+      case 'password':
+        errorText = passwordMatchValidation(value, document.getElementById('passwordConfirm').value);
+        this.setState((prevState) => ({
+          errorMessage: {
+            ...prevState.errorMessage,
+            [`${type}Error`]: errorText,
+          },
+        }));
+        break;
+      case 'passwordConfirm':
+        errorText = passwordMatchValidation(value, document.getElementById('password').value);
+        this.setState((prevState) => ({
+          errorMessage: {
+            ...prevState.errorMessage,
+            [`${type.replace('Confirm', '')}Error`]: errorText,
+          },
+        }));
+        break;
+      case 'firstName':
+      case 'lastName':
+        errorText = onlyTextValidation(value);
+        this.setState((prevState) => ({
+          errorMessage: {
+            ...prevState.errorMessage,
+            [`${type}Error`]: errorText,
+          },
+        }));
+        break;
+      case 'requiredValues':
+        this.setState((prevState) => ({
+          errorMessage: {
+            ...prevState.errorMessage,
+            ...value,
+          }
+        }));
+        break;
+      default:
+        break;
+    }
+  };
+
+
   render() {
-    const { display: { store, cart, authWindow, shipping, payment, confirm }, loading, error, data, categories } = this.state;
+    const { display: { store, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories } = this.state;
 
     return (
       <>
         <header>
           <span>Shopper</span>
+          <span>
+            <FontAwesomeIcon
+              icon={faArrowRightToBracket}
+              onClick={this.toggleAuthWindow}
+            />
+          </span>
           <span>
             <FontAwesomeIcon
               icon={faShoppingCart}
@@ -96,7 +183,14 @@ class ShopperWindow extends React.Component {
             />
             : null}
           {authWindow ?
-            <AuthWindow />
+            <AuthWindow
+              login={login}
+              signUp={signUp}
+              toggleDisplay={this.toggleDisplay}
+              createEventArray={this.createEventArray}
+              handleValidations={this.handleValidations}
+              errorMessage={errorMessage}
+            />
             : null}
           {shipping ?
             <Shipping />
@@ -113,7 +207,7 @@ class ShopperWindow extends React.Component {
         </div>
       </>
     )
-  }
+  };
 }
 
 export default ShopperWindow;

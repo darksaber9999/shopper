@@ -40,7 +40,10 @@ header {
 }
 
 .store-window,
-.cart-window {
+.cart-window,
+.auth-window,
+.login-window,
+.signUp-window {
   background-color: rgba(128, 128, 128, 0.4);
   border-radius: 16px;
   padding: 7px 12px;
@@ -75,4 +78,42 @@ header {
 
 .cart-window {
   width: 300px;
+}
+
+.auth-window {
+  position: fixed;
+  top: 40%;
+  left: 40%;
+  width: 300px;
+  background-color: black;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 100%;
+}
+
+input[type='radio'] {
+  width: initial;
+}
+
+label[for='password'] {
+  position: relative;
+}
+
+.passwordEyeIcon {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  color: black;
+}
+
+.error-message {
+  color: red;
+  font-size: 15px;
+  padding: 5px;
 }

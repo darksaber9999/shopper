@@ -8,4 +8,13 @@ export const INITIAL_DISPLAY = {
   shipping: false,
   payment: false,
   confirm: false,
+  login: true,
+  signUp: false,
+};
+
+export const TEST_USER = {
+  emailAddress: 'test@email.com',
+  password: 'test',
+  firstName: 'Test',
+  lastName: 'User',
 };
