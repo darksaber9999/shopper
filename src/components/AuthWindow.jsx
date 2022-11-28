@@ -2,7 +2,7 @@ import React from "react";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
-const AuthWindow = ({ login, signUp, toggleDisplay, createEventArray, handleValidations, errorMessage }) => {
+const AuthWindow = ({ login, signUp, toggleDisplay, createEventArray, handleValidations, errorMessage, addNewUser }) => {
 
   const swapAuthOption = () => {
     toggleDisplay('signUp');
@@ -58,6 +58,8 @@ const AuthWindow = ({ login, signUp, toggleDisplay, createEventArray, handleVali
           handleValidations={handleValidations}
           errorMessage={errorMessage}
           passwordMask={passwordMask}
+          addNewUser={addNewUser}
+          swapAuthOption={swapAuthOption}
         />
         : null}
     </div>

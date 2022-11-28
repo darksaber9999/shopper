@@ -144,12 +144,21 @@ class ShopperWindow extends React.Component {
           errorMessage: {
             ...prevState.errorMessage,
             ...value,
-          }
+          },
         }));
         break;
       default:
         break;
     }
+  };
+
+  addNewUser = (user) => {
+    this.setState((prevState) => ({
+      currentUsers: [
+        ...prevState.currentUsers,
+        user,
+      ],
+    }));
   };
 
 
@@ -190,6 +199,7 @@ class ShopperWindow extends React.Component {
               createEventArray={this.createEventArray}
               handleValidations={this.handleValidations}
               errorMessage={errorMessage}
+              addNewUser={this.addNewUser}
             />
             : null}
           {shipping ?

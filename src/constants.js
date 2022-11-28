@@ -15,6 +15,7 @@ export const INITIAL_DISPLAY = {
 export const TEST_USER = {
   emailAddress: 'test@email.com',
   password: 'test',
+  passwordConfirm: 'test',
   firstName: 'Test',
   lastName: 'User',
 };
