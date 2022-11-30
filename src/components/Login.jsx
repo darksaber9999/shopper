@@ -1,9 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { checkErrorBeforeSave } from "../validations";
+import { checkErrorBeforeSave, isEmpty } from "../validations";
 
-const Login = ({ createEventArray, handleValidations, errorMessage, passwordMask }) => {
+const Login = ({ errorMessage, toggleAuthWindow, currentUsers, createEventArray, createEventObject, handleValidations, toggleUserLoggedIn, passwordMask }) => {
 
   const inputData = [
     { key: 1, id: 'emailAddress', label: 'Email Address', name: 'emailAddressLogin', type: 'email', error: 'emailAddressLoginError' },
@@ -16,6 +16,22 @@ const Login = ({ createEventArray, handleValidations, errorMessage, passwordMask
     e.preventDefault();
     const eventArray = createEventArray(e);
     handleValidations('requiredValues', checkErrorBeforeSave(eventArray));
+
+    if (!isEmpty(errorMessage) && !Object.values(errorMessage).filter((val) => val !== undefined).length) {
+      const eventObject = createEventObject(eventArray);
+      let userMatchFound = false;
+      currentUsers.forEach((user) => {
+        if (user.emailAddressLogin === eventObject.emailAddress) {
+          user.passwordLogin === eventObject.password ?
+            userMatchFound = true :
+            userMatchFound = false;
+        }
+      });
+      if (userMatchFound) {
+        toggleUserLoggedIn();
+        toggleAuthWindow();
+      }
+    }
   }
 
   return (

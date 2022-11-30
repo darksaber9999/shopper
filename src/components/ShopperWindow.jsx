@@ -22,7 +22,9 @@ class ShopperWindow extends React.Component {
     categories: [],
     currentUsers: [
       TEST_USER,
-    ]
+    ],
+    userLoggedIn: false,
+    userCart: new Map(),
   }
 
   setProductData = () => {
@@ -88,6 +90,12 @@ class ShopperWindow extends React.Component {
 
     return eventArray;
   };
+
+  createEventObject = (eventArray) => {
+    let newObject = {};
+    eventArray.forEach((obj) => newObject = { ...newObject, ...obj });
+    return newObject;
+  }
 
   handleValidations = (type, value) => {
     let errorText;
@@ -161,9 +169,11 @@ class ShopperWindow extends React.Component {
     }));
   };
 
+  toggleUserLoggedIn = () => this.setState((prevState) => ({ userLoggedIn: !prevState.userLoggedIn }));
+
 
   render() {
-    const { display: { store, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories } = this.state;
+    const { display: { store, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories, currentUsers, userLoggedIn, userCart } = this.state;
 
     return (
       <>
@@ -195,11 +205,16 @@ class ShopperWindow extends React.Component {
             <AuthWindow
               login={login}
               signUp={signUp}
-              toggleDisplay={this.toggleDisplay}
-              createEventArray={this.createEventArray}
-              handleValidations={this.handleValidations}
               errorMessage={errorMessage}
+              currentUsers={currentUsers}
+              userLoggedIn={userLoggedIn}
+              toggleDisplay={this.toggleDisplay}
+              toggleAuthWindow={this.toggleAuthWindow}
+              createEventArray={this.createEventArray}
+              createEventObject={this.createEventObject}
+              handleValidations={this.handleValidations}
               addNewUser={this.addNewUser}
+              toggleUserLoggedIn={this.toggleUserLoggedIn}
             />
             : null}
           {shipping ?
@@ -212,7 +227,9 @@ class ShopperWindow extends React.Component {
             <Confirm />
             : null}
           {cart ?
-            <Cart />
+            <Cart
+              userCart={userCart}
+            />
             : null}
         </div>
       </>

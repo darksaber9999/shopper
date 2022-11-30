@@ -3,7 +3,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { checkErrorBeforeSave, isEmpty } from "../validations";
 
-const SignUp = ({ createEventArray, handleValidations, errorMessage, passwordMask, addNewUser, swapAuthOption }) => {
+const SignUp = ({ errorMessage, toggleAuthWindow, createEventArray, createEventObject, handleValidations, addNewUser, toggleUserLoggedIn, passwordMask }) => {
 
   const inputData = [
     { key: 1, id: 'emailAddress', label: 'Email Address', name: 'emailAddress', type: 'email', error: 'emailAddressError' },
@@ -20,11 +20,11 @@ const SignUp = ({ createEventArray, handleValidations, errorMessage, passwordMas
     const eventArray = createEventArray(e);
     handleValidations('requiredValues', checkErrorBeforeSave(eventArray));
 
-    if (!isEmpty(errorMessage) && !Object.values(errorMessage).filter((val) => val !== undefined).length) {
-      let newUser = {};
-      eventArray.forEach((obj) => newUser = { ...newUser, ...obj });
-      addNewUser(newUser);
-      swapAuthOption();
+    if (!isEmpty(errorMessage) && !Object.values(errorMessage).filter((val) => val !== undefined).length && isEmpty(checkErrorBeforeSave(eventArray))) {
+      const eventObject = createEventObject(eventArray);
+      addNewUser(eventObject);
+      toggleUserLoggedIn();
+      toggleAuthWindow();
     }
   }
 
