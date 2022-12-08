@@ -40,8 +40,7 @@ header {
 }
 
 .store-window,
-.cart-window,
-.auth-window,
+.cart-display,
 .login-window,
 .signUp-window,
 .logout-window {
@@ -103,24 +102,39 @@ header {
   margin-left: 10px;
 }
 
-.cart-window {
-  width: 300px;
-}
-
-.auth-pane {
+.auth-pane,
+.cart-pane {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.4);
+  ;
+}
+
+.auth-window,
+.cart-window {
+  background-color: black;
+  border-radius: 16px;
+  padding: 7px 12px;
+  width: 300px;
+  position: relative;
+}
+
+.cart-window {
+  margin-left: auto;
+  top: 100px;
+}
+
+.cart-display {
+  height: 85vh;
+  border-radius: 16px;
+  margin-top: 5px;
 }
 
 .auth-window {
   margin: auto;
-  width: 300px;
-  background-color: black;
-  position: relative;
   top: 40%;
 }
 

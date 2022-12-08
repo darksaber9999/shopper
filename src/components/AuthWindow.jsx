@@ -20,13 +20,16 @@ const AuthWindow = ({ login, signUp, errorMessage, currentUsers, userLoggedIn, t
 
   const clickToCloseAuthWindow = (e) => {
     if (e.target.classList.contains('auth-pane')) {
-      toggleAuthWindow();
+      e.target.children[0].addEventListener('animationend', () => toggleAuthWindow());
+      e.target.children[0].classList.remove('animate__zoomIn');
+      e.target.children[0].classList.add('animate__zoomOut');
+      e.target.children[0].removeEventListener('animationend', () => toggleAuthWindow());
     }
   }
 
   return (
     <div className="auth-pane" onClick={clickToCloseAuthWindow}>
-      <div className="auth-window">
+      <div className="auth-window animate__animated animate__zoomIn">
         {(login || signUp) && !userLoggedIn ?
           <div className="auth-window-switcher">
             <label htmlFor="login">

@@ -3,7 +3,7 @@ export const COMMERCE_API = process.env.REACT_APP_COMMERCE_API;
 
 export const INITIAL_DISPLAY = {
   store: true,
-  cart: true,
+  cart: false,
   authWindow: false,
   shipping: false,
   payment: false,

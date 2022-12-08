@@ -95,7 +95,7 @@ class ShopperWindow extends React.Component {
     let newObject = {};
     eventArray.forEach((obj) => newObject = { ...newObject, ...obj });
     return newObject;
-  }
+  };
 
   handleValidations = (type, value) => {
     let errorText;
@@ -229,6 +229,7 @@ class ShopperWindow extends React.Component {
           {cart ?
             <Cart
               userCart={userCart}
+              toggleCart={this.toggleCart}
             />
             : null}
         </div>

@@ -1,10 +1,22 @@
 import React from "react";
 
-const Cart = () => {
+const Cart = ({ toggleCart }) => {
+
+  const clickToCloseCartWindow = (e) => {
+    if (e.target.classList.contains('cart-pane')) {
+      e.target.children[0].addEventListener('animationend', () => toggleCart());
+      e.target.children[0].classList.remove('animate__slideInRight');
+      e.target.children[0].classList.add('animate__slideOutRight');
+      e.target.children[0].removeEventListener('animationend', () => toggleCart());
+    }
+  }
 
   return (
-    <div className="cart-window animate__animated animate__slideInRight">
-      <span>Cart</span>
+    <div className="cart-pane" onClick={clickToCloseCartWindow}>
+      <div className="cart-window animate__animated animate__slideInRight">
+        <span>Cart</span>
+        <div className="cart-display"></div>
+      </div>
     </div>
   )
 }
