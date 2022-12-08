@@ -13,7 +13,7 @@ class CommerceService {
           redirect: 'follow'
         };
 
-        const productsURL = `${COMMERCE_URL}products`;
+        const productsURL = `${COMMERCE_URL}products?limit=25`;
 
         const response = await fetch(productsURL, requestOptions);
         if (response.ok) {
