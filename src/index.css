@@ -43,7 +43,10 @@ header {
 .cart-display,
 .login-window,
 .signUp-window,
-.logout-window {
+.logout-window,
+.shipping-display,
+.payment-display,
+.confirm-display {
   background-color: rgba(128, 128, 128, 0.4);
   border-radius: 16px;
   padding: 7px 12px;
@@ -103,7 +106,10 @@ header {
 }
 
 .auth-pane,
-.cart-pane {
+.cart-pane,
+.shipping-pane,
+.payment-pane,
+.confirm-pane {
   position: fixed;
   top: 0;
   left: 0;
@@ -114,7 +120,10 @@ header {
 }
 
 .auth-window,
-.cart-window {
+.cart-window,
+.shipping-window,
+.payment-window,
+.confirm-window {
   background-color: black;
   border-radius: 16px;
   padding: 7px 12px;
@@ -128,18 +137,28 @@ header {
 }
 
 .cart-display {
-  height: 85vh;
+  height: 75vh;
   border-radius: 16px;
   margin-top: 5px;
 }
 
-.auth-window {
+.auth-window,
+.shipping-window,
+.payment-window,
+.confirm-window {
   margin: auto;
+}
+
+.auth-window {
   top: 40%;
 }
 
 .auth-window-switcher {
   margin-bottom: 5px;
+}
+
+.shipping-window {
+  top: 30%;
 }
 
 form {

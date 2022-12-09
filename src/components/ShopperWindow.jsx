@@ -9,7 +9,7 @@ import CommerceService from "../services";
 import { INITIAL_DISPLAY, TEST_USER } from "../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import { checkForDuplicateUser, onlyTextValidation, passwordMatchValidation } from "../validations";
+import { checkForDuplicateUser, onlyNumbersValidation, onlyTextValidation, passwordMatchValidation } from "../validations";
 
 const commerce = new CommerceService();
 class ShopperWindow extends React.Component {
@@ -81,6 +81,12 @@ class ShopperWindow extends React.Component {
 
   toggleAuthWindow = () => this.toggleDisplay('authWindow');
 
+  toggleShippingWindow = () => this.toggleDisplay('shipping');
+
+  togglePaymentWindow = () => this.toggleDisplay('payment');
+
+  toggleConfirmWindow = () => this.toggleDisplay('confirm');
+
   createEventArray = (e) => {
     const eventArray = [];
 
@@ -102,6 +108,13 @@ class ShopperWindow extends React.Component {
     switch (type) {
       case 'emailAddressLogin':
       case 'passwordLogin':
+      case 'addressTitle':
+      case 'name':
+      case 'addressLine1':
+      case 'addressLine2':
+      case 'city':
+      case 'state':
+      case 'country':
         errorText = undefined;
         this.setState((prevState) => ({
           errorMessage: {
@@ -140,6 +153,16 @@ class ShopperWindow extends React.Component {
       case 'firstName':
       case 'lastName':
         errorText = onlyTextValidation(value);
+        this.setState((prevState) => ({
+          errorMessage: {
+            ...prevState.errorMessage,
+            [`${type}Error`]: errorText,
+          },
+        }));
+        break;
+      case 'zipCode':
+      case 'phoneNumber':
+        errorText = onlyNumbersValidation(value.split('-').join(''));
         this.setState((prevState) => ({
           errorMessage: {
             ...prevState.errorMessage,
@@ -218,7 +241,13 @@ class ShopperWindow extends React.Component {
             />
             : null}
           {shipping ?
-            <Shipping />
+            <Shipping
+              errorMessage={errorMessage}
+              toggleShippingWindow={this.toggleShippingWindow}
+              createEventArray={this.createEventArray}
+              createEventObject={this.createEventObject}
+              handleValidations={this.handleValidations}
+            />
             : null}
           {payment ?
             <Payment />
