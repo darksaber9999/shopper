@@ -16,6 +16,7 @@ const Cart = ({ toggleCart }) => {
       <div className="cart-window animate__animated animate__slideInRight">
         <span>Cart</span>
         <div className="cart-display"></div>
+        <button>Checkout</button>
       </div>
     </div>
   )
