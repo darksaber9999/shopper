@@ -3,7 +3,11 @@ import React from "react";
 const Confirm = () => {
 
   return (
-    <span>This is the Confirm</span>
+    <div className="confirm-pane">
+      <div className="confirm-window animate__animated animate__zoomIn">
+        <h3>Confirm</h3>
+      </div>
+    </div>
   )
 }
 
