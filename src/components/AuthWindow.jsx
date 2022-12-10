@@ -41,7 +41,7 @@ const AuthWindow = ({ login, signUp, errorMessage, currentUsers, userLoggedIn, t
                 onChange={swapAuthOption}
                 defaultChecked={login}
               />
-              <span>Login</span>
+              <h3>Login</h3>
             </label>
             <label htmlFor="signUp">
               <input
@@ -52,7 +52,7 @@ const AuthWindow = ({ login, signUp, errorMessage, currentUsers, userLoggedIn, t
                 onChange={swapAuthOption}
                 defaultChecked={signUp}
               />
-              <span>Sign Up</span>
+              <h3>Sign Up</h3>
             </label>
           </div>
           : null}
