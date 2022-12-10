@@ -9,7 +9,7 @@ import CommerceService from "../services";
 import { INITIAL_DISPLAY, TEST_USER } from "../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import { checkForDuplicateUser, onlyNumbersValidation, onlyTextValidation, passwordMatchValidation } from "../validations";
+import { cardNumberValidation, checkForDuplicateUser, onlyNumbersValidation, onlyTextValidation, passwordMatchValidation, securityCodeValidation } from "../validations";
 
 const commerce = new CommerceService();
 class ShopperWindow extends React.Component {
@@ -25,6 +25,7 @@ class ShopperWindow extends React.Component {
     ],
     userLoggedIn: false,
     userCart: new Map(),
+    cardType: '',
   }
 
   setProductData = () => {
@@ -103,18 +104,32 @@ class ShopperWindow extends React.Component {
     return newObject;
   };
 
+  findDebitCardType = (cardNumber) => {
+    const regexPattern = {
+      MASTERCARD: /^5[1-5][0-9]{1,}|^2[2-7][0-9]{1,}$/,
+      VISA: /^4[0-9]{2,}$/,
+      AMERICAN_EXPRESS: /^3[47][0-9]{5,}$/,
+      DISCOVER: /^6(?:011|5[0-9]{2})[0-9]{3,}$/,
+    };
+    for (const card in regexPattern) {
+      if (cardNumber.replace(/[^\d]/g, '').match(regexPattern[card])) return card;
+    }
+    return '';
+  };
+
   handleValidations = (type, value) => {
     let errorText;
     switch (type) {
       case 'emailAddressLogin':
       case 'passwordLogin':
-      case 'addressTitle':
       case 'name':
       case 'addressLine1':
       case 'addressLine2':
       case 'city':
       case 'state':
       case 'country':
+      case 'expiryMonth':
+      case 'expiryYear':
         errorText = undefined;
         this.setState((prevState) => ({
           errorMessage: {
@@ -170,6 +185,34 @@ class ShopperWindow extends React.Component {
           },
         }));
         break;
+      case 'cardNumber':
+        errorText = cardNumberValidation(value);
+        this.setState((prevState) => ({
+          cardType: this.findDebitCardType(value),
+          errorMessage: {
+            ...prevState.errorMessage,
+            [`${type}Error`]: errorText,
+          },
+        }));
+        break;
+      case 'cardholderName':
+        errorText = onlyTextValidation(value);
+        this.setState((prevState) => ({
+          errorMessage: {
+            ...prevState.errorMessage,
+            [`${type}Error`]: errorText,
+          },
+        }));
+        break;
+      case 'securityCode':
+        errorText = securityCodeValidation(3, value);
+        this.setState((prevState) => ({
+          errorMessage: {
+            ...prevState.errorMessage,
+            [`${type}Error`]: errorText,
+          },
+        }));
+        break;
       case 'requiredValues':
         this.setState((prevState) => ({
           errorMessage: {
@@ -196,7 +239,7 @@ class ShopperWindow extends React.Component {
 
 
   render() {
-    const { display: { store, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories, currentUsers, userLoggedIn, userCart } = this.state;
+    const { display: { store, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories, currentUsers, userLoggedIn, userCart, cardType } = this.state;
 
     return (
       <>
@@ -250,7 +293,14 @@ class ShopperWindow extends React.Component {
             />
             : null}
           {payment ?
-            <Payment />
+            <Payment
+              errorMessage={errorMessage}
+              cardType={cardType}
+              togglePaymentWindow={this.togglePaymentWindow}
+              createEventArray={this.createEventArray}
+              createEventObject={this.createEventObject}
+              handleValidations={this.handleValidations}
+            />
             : null}
           {confirm ?
             <Confirm />

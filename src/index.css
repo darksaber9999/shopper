@@ -149,12 +149,19 @@ header {
   margin: auto;
 }
 
-.auth-window {
-  top: 40%;
+.auth-window,
+.payment-window,
+.confirm-window {
+  top: 35%;
 }
 
 .auth-window-switcher {
   margin-bottom: 5px;
+}
+
+.auth-window-switcher label,
+.shipping-window-switcher label {
+  margin: 0 10px;
 }
 
 .shipping-window {
@@ -164,6 +171,19 @@ header {
 form {
   display: flex;
   flex-direction: column;
+}
+
+input[type='radio'] {
+  width: initial;
+  height: initial;
+}
+
+label[for='password'] {
+  position: relative;
+}
+
+label h3 {
+  display: inline-block;
 }
 
 input,
@@ -184,21 +204,24 @@ input[type="submit"]:hover {
   box-shadow: 0px 0px 0px 4px white;
 }
 
-input[type='radio'] {
-  width: initial;
-  height: initial;
-}
-
-label[for='password'] {
-  position: relative;
-}
-
 .passwordEyeIcon {
   position: absolute;
   top: 3px;
   right: 5px;
   color: black;
   font-size: 32px;
+}
+
+label[for='cardNumber'] {
+  position: relative;
+}
+
+.payment-window-card-image {
+  position: absolute;
+  top: -5px;
+  left: 190px;
+  width: 50px;
+  height: 33px;
 }
 
 .error-message {
