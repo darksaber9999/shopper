@@ -303,7 +303,9 @@ class ShopperWindow extends React.Component {
             />
             : null}
           {confirm ?
-            <Confirm />
+            <Confirm
+              toggleConfirmWindow={this.toggleConfirmWindow}
+            />
             : null}
           {cart ?
             <Cart

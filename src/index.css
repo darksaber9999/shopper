@@ -229,3 +229,8 @@ label[for='cardNumber'] {
   font-size: 15px;
   padding: 5px;
 }
+
+.confirm-window-check-mark-icon {
+  font-size: 60px;
+  color: green;
+}
