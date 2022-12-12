@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
-const Confirm = ({ toggleConfirmWindow }) => {
+const Confirm = ({ toggleConfirmWindow, clearCart }) => {
 
   const clickToCloseConfirmWindow = (e) => {
     if (e.target.classList.contains('confirm-pane')) {
@@ -10,6 +10,7 @@ const Confirm = ({ toggleConfirmWindow }) => {
       e.target.children[0].classList.remove('animate__zoomIn');
       e.target.children[0].classList.add('animate__zoomOut');
       e.target.children[0].removeEventListener('animationend', () => toggleConfirmWindow());
+      clearCart();
     }
   }
 
