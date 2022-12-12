@@ -1,7 +1,7 @@
 import React from "react";
 import ItemCard from "./ItemCard";
 
-const CategoryRow = ({ category, data }) => {
+const CategoryRow = ({ category, data, addToCart }) => {
 
   return (
     <div className="category-row" data-category={category}>
@@ -11,6 +11,7 @@ const CategoryRow = ({ category, data }) => {
           <ItemCard
             data={item}
             key={item.id}
+            addToCart={addToCart}
           />
         ))}
       </div>

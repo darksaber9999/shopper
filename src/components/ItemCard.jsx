@@ -1,14 +1,16 @@
 import React from "react";
 
-const ItemCard = ({ data }) => {
-  const { name, price, quantity, image, category } = data;
-  const id = `${category.toLowerCase()}-${name.toLowerCase()}-info`;
+const ItemCard = ({ data, addToCart }) => {
+  const { name, price, quantity, image, category, id } = data;
+  const stringID = `${category.toLowerCase()}-${name.toLowerCase()}-info`;
 
   const toggleItemInfoDisplay = (e) => {
     e.type === 'mouseenter' ?
       document.getElementById(`${e.target.dataset.category.toLowerCase()}-${e.target.dataset.item.toLowerCase()}-info`).classList.add('displayed') :
       document.getElementById(`${e.target.dataset.category.toLowerCase()}-${e.target.dataset.item.toLowerCase()}-info`).classList.remove('displayed');
   }
+
+  const toggleAddToCart = (e) => addToCart(e.target.dataset.product);
 
   return (
     <div
@@ -26,7 +28,7 @@ const ItemCard = ({ data }) => {
         data-item={name}
       />
       <div
-        id={id}
+        id={stringID}
         className="item-info-wrapper"
         data-category={category}
         data-item={name}
@@ -44,7 +46,12 @@ const ItemCard = ({ data }) => {
           <span className="item-price">${price}</span>
           <span className="item-quantity">{quantity} left!</span>
         </p>
-        <button data-category={category} data-item={name}>Add to Cart</button>
+        <button
+          data-category={category}
+          data-item={name}
+          data-product={id}
+          onClick={toggleAddToCart}
+        >Add to Cart</button>
       </div>
     </div >
   )

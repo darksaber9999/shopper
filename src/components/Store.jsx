@@ -1,7 +1,7 @@
 import React from "react";
 import CategoryRow from "./CategoryRow";
 
-const Store = ({ data, loading, error, categories }) => {
+const Store = ({ data, loading, error, categories, addToCart }) => {
 
   return (
     <div className="store-window">
@@ -10,6 +10,7 @@ const Store = ({ data, loading, error, categories }) => {
           category={item.name}
           key={item.id}
           data={data}
+          addToCart={addToCart}
         />
       )) : <div className="loading-screen">Loading...</div>}
       {error && <h3 className="error-screen text-danger">Error loading data</h3>}
