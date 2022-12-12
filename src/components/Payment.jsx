@@ -1,8 +1,8 @@
 import React from "react";
 import { CARD, CARD_ICON, OTHER_CARDS } from "../constants";
-import { checkErrorBeforeSave } from "../validations";
+import { checkErrorBeforeSave, isEmpty } from "../validations";
 
-const Payment = ({ errorMessage, cardType, togglePaymentWindow, createEventArray, createEventObject, handleValidations }) => {
+const Payment = ({ errorMessage, cardType, togglePaymentWindow, toggleConfirmWindow, createEventArray, createEventObject, handleValidations, addUserPaymentInfo }) => {
 
   const inputData = [
     { key: 1, id: 'cardholderName', label: 'Cardholder Name', name: 'cardholderName', type: 'text', error: 'cardholderNameError' },
@@ -34,7 +34,15 @@ const Payment = ({ errorMessage, cardType, togglePaymentWindow, createEventArray
     const eventArray = createEventArray(e);
     handleValidations('requiredValues', checkErrorBeforeSave(eventArray));
 
-    console.log(eventArray);
+    if (!isEmpty(errorMessage) && !Object.values(errorMessage).filter((val) => val !== undefined).length && isEmpty(checkErrorBeforeSave(eventArray))) {
+      const eventObject = createEventObject(eventArray);
+      addUserPaymentInfo(eventObject);
+      e.target.parentElement.addEventListener('animationend', () => togglePaymentWindow());
+      e.target.parentElement.classList.remove('animate__zoomIn');
+      e.target.parentElement.classList.add('animate__zoomOut');
+      e.target.parentElement.removeEventListener('animationend', () => togglePaymentWindow());
+      toggleConfirmWindow();
+    }
   }
 
   return (

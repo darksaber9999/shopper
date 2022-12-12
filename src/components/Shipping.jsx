@@ -1,7 +1,7 @@
 import React from "react";
-import { checkErrorBeforeSave } from "../validations";
+import { checkErrorBeforeSave, isEmpty } from "../validations";
 
-const Shipping = ({ errorMessage, toggleShippingWindow, createEventArray, createEventObject, handleValidations }) => {
+const Shipping = ({ errorMessage, toggleShippingWindow, togglePaymentWindow, createEventArray, createEventObject, handleValidations, addUserShippingInfo }) => {
 
   const inputData = [
     { key: 1, id: 'name', label: 'Name', name: 'name', type: 'text', error: 'nameError' },
@@ -35,7 +35,15 @@ const Shipping = ({ errorMessage, toggleShippingWindow, createEventArray, create
     const eventArray = createEventArray(e);
     handleValidations('requiredValues', checkErrorBeforeSave(eventArray));
 
-    console.log(eventArray);
+    if (!isEmpty(errorMessage) && !Object.values(errorMessage).filter((val) => val !== undefined).length && isEmpty(checkErrorBeforeSave(eventArray))) {
+      const eventObject = createEventObject(eventArray);
+      addUserShippingInfo(eventObject);
+      e.target.parentElement.addEventListener('animationend', () => toggleShippingWindow());
+      e.target.parentElement.classList.remove('animate__zoomIn');
+      e.target.parentElement.classList.add('animate__zoomOut');
+      e.target.parentElement.removeEventListener('animationend', () => toggleShippingWindow());
+      togglePaymentWindow();
+    }
   }
 
   return (
