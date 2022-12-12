@@ -275,7 +275,7 @@ class ShopperWindow extends React.Component {
   clearCart = () => this.setState((prevState) => ({ userCart: new Map() }));
 
   render() {
-    const { display: { store, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories, currentUsers, userLoggedIn, userCart, cardType, shippingInfo, paymentInfo } = this.state;
+    const { display: { store, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories, currentUsers, userLoggedIn, userCart, cardType } = this.state;
 
     return (
       <>
