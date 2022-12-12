@@ -1,6 +1,7 @@
 import React from "react";
+import CartItemCard from "./CartItemCard";
 
-const Cart = ({ toggleCart }) => {
+const Cart = ({ data, userCart, toggleCart, toggleShippingWindow, removeFromCart }) => {
 
   const clickToCloseCartWindow = (e) => {
     if (e.target.classList.contains('cart-pane')) {
@@ -11,12 +12,39 @@ const Cart = ({ toggleCart }) => {
     }
   }
 
+  const createUserCartKeysArray = () => {
+    const tempArray = [];
+    if (!userCart.entries().next().done) {
+      for (const item of userCart.entries()) {
+        tempArray.push(({ id: item[0], quantity: item[1] }));
+      }
+    }
+    return tempArray;
+  }
+
+  const handleCheckout = (e) => {
+    e.target.parentElement.addEventListener('animationend', () => toggleCart());
+    e.target.parentElement.classList.remove('animate__slideInRight');
+    e.target.parentElement.classList.add('animate__slideOutRight');
+    e.target.parentElement.removeEventListener('animationend', () => toggleCart());
+    toggleShippingWindow();
+  }
+
   return (
     <div className="cart-pane" onClick={clickToCloseCartWindow}>
       <div className="cart-window animate__animated animate__slideInRight">
         <h3>Cart</h3>
-        <div className="cart-display"></div>
-        <button>Checkout</button>
+        <div className="cart-display">
+          {createUserCartKeysArray().map((item) => (
+            <CartItemCard
+              key={`${item.id}${item.quantity}`}
+              data={data}
+              product={item}
+              removeFromCart={removeFromCart}
+            />
+          ))}
+        </div>
+        <button onClick={handleCheckout}>Checkout</button>
       </div>
     </div>
   )
