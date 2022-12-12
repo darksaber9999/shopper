@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Test Account
+Credentials for the built in test account:
+email address: test@email.com
+password: test
+
 ## Available Scripts
 
 In the project directory, you can run:
