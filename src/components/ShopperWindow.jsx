@@ -26,6 +26,8 @@ class ShopperWindow extends React.Component {
     userLoggedIn: false,
     userCart: new Map(),
     cardType: '',
+    shippingInfo: {},
+    paymentInfo: {},
   }
 
   setProductData = () => {
@@ -237,9 +239,43 @@ class ShopperWindow extends React.Component {
 
   toggleUserLoggedIn = () => this.setState((prevState) => ({ userLoggedIn: !prevState.userLoggedIn }));
 
+  addUserShippingInfo = (shippingInfo) => {
+    this.setState((prevState) => ({
+      ...prevState,
+      shippingInfo: shippingInfo,
+    }));
+  }
+
+  addUserPaymentInfo = (paymentInfo) => {
+    this.setState((prevState) => ({
+      ...prevState,
+      paymentInfo: paymentInfo,
+    }));
+  }
+
+  addToCart = (item) => this.setState((prevState) => ({ userCart: prevState.userCart.set(item, (prevState.userCart.has(item) ? (prevState.userCart.get(item) + 1) : 1)) }));
+
+  removeFromCart = (item) => this.setState((prevState) => {
+    prevState.userCart.delete(item);
+    return {
+      userCart: prevState.userCart,
+    }
+  });
+
+  changeQuantity = (method, item) => this.setState((prevState) => {
+    return {
+      userCart: (method === 'add') ?
+        prevState.userCart.set(item, prevState.userCart.get(item) + 1) :
+        (prevState.userCart.get(item) === 1) ?
+          prevState.userCart.delete(item) :
+          prevState.userCart.set(item, prevState.userCart.get(item) - 1),
+    }
+  });
+
+  clearCart = () => this.setState((prevState) => ({ userCart: new Map() }));
 
   render() {
-    const { display: { store, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories, currentUsers, userLoggedIn, userCart, cardType } = this.state;
+    const { display: { store, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories, currentUsers, userLoggedIn, userCart, cardType, shippingInfo, paymentInfo } = this.state;
 
     return (
       <>
@@ -265,6 +301,7 @@ class ShopperWindow extends React.Component {
               data={data}
               error={error}
               categories={categories}
+              addToCart={this.addToCart}
             />
             : null}
           {authWindow ?
@@ -287,9 +324,11 @@ class ShopperWindow extends React.Component {
             <Shipping
               errorMessage={errorMessage}
               toggleShippingWindow={this.toggleShippingWindow}
+              togglePaymentWindow={this.togglePaymentWindow}
               createEventArray={this.createEventArray}
               createEventObject={this.createEventObject}
               handleValidations={this.handleValidations}
+              addUserShippingInfo={this.addUserShippingInfo}
             />
             : null}
           {payment ?
@@ -297,20 +336,26 @@ class ShopperWindow extends React.Component {
               errorMessage={errorMessage}
               cardType={cardType}
               togglePaymentWindow={this.togglePaymentWindow}
+              toggleConfirmWindow={this.toggleConfirmWindow}
               createEventArray={this.createEventArray}
               createEventObject={this.createEventObject}
               handleValidations={this.handleValidations}
+              addUserPaymentInfo={this.addUserPaymentInfo}
             />
             : null}
           {confirm ?
             <Confirm
               toggleConfirmWindow={this.toggleConfirmWindow}
+              clearCart={this.clearCart}
             />
             : null}
           {cart ?
             <Cart
+              data={data}
               userCart={userCart}
               toggleCart={this.toggleCart}
+              toggleShippingWindow={this.toggleShippingWindow}
+              removeFromCart={this.removeFromCart}
             />
             : null}
         </div>
