@@ -14,9 +14,10 @@ const Shipping = ({ errorMessage, toggleShippingWindow, togglePaymentWindow, cre
     { key: 8, id: 'phoneNumber', label: 'Phone Number', name: 'phoneNumber', type: 'text', error: 'phoneNumberError', pattern: '[0-9]{3}-[0-9]{3}-[0-9]{4}', maxLength: 12 },
   ];
 
+  const option1 = ['Select shipping method', 'Standard', 'Express'];
+
   const shippingInputData = [
-    { key: 21, id: 'standardShipping', value: 'standard', name: 'shipping', type: 'radio', label: 'Standard', defaultChecked: true, },
-    { key: 22, id: 'expressShipping', value: 'express', name: 'shipping', type: 'radio', label: 'Express', defaultChecked: false, },
+    { key: 21, id: 'shippingMethod', name: 'shippingMethod', option: option1, error: 'shippingMethodError' },
   ];
 
   const clickToCloseShippingWindow = (e) => {
@@ -84,15 +85,23 @@ const Shipping = ({ errorMessage, toggleShippingWindow, togglePaymentWindow, cre
                 key={item.key}
                 htmlFor={item.id}
               >
-                <input
+                <select
                   id={item.id}
                   autoComplete="off"
-                  value={item.value}
-                  type={item.type}
                   name={item.name}
-                  defaultChecked={item.defaultChecked}
-                />
-                {item.label}
+                  onBlur={handleBlur}
+                >
+                  {item.option.map((num) => (
+                    <option key={num} value={num}>{num}</option>
+                  ))}
+                </select>
+                <span className="error-message">
+                  {(errorMessage
+                    && errorMessage[item.error]
+                    && errorMessage[item.error].length > 1)
+                    ? errorMessage[item.error]
+                    : null}
+                </span>
               </label>
             )) : null}
           </div>

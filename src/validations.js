@@ -30,7 +30,9 @@ export const checkErrorBeforeSave = (array) => {
   let errorValue = {};
 
   array.forEach((field) => {
-    if (!Object.values(field).toString().length || (Object.keys(field).toString().slice(0, 6) === 'expiry' && Object.values(field).toString().length > 4)) {
+    if (!Object.values(field).toString().length ||
+      (Object.keys(field).toString().slice(0, 6) === 'expiry' && Object.values(field).toString().length > 4) ||
+      (Object.keys(field).toString() === 'shippingMethod' && Object.values(field).toString().length > 8)) {
       errorValue = { ...errorValue, [`${Object.keys(field).toString().replace('Confirm', '')}Error`]: 'Required', };
     }
   });
