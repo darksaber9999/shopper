@@ -136,6 +136,17 @@ header {
   top: 100px;
 }
 
+.cart-title {
+  position: relative;
+}
+
+.clear-cart-icon {
+  position: absolute;
+  right: 46px;
+  top: 26px;
+  font-size: 22px;
+}
+
 .cart-display {
   height: 50vh;
   border-radius: 16px;

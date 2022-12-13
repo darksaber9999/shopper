@@ -1,7 +1,9 @@
 import React from "react";
 import CartItemCard from "./CartItemCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const Cart = ({ data, userCart, toggleCart, toggleShippingWindow, removeFromCart }) => {
+const Cart = ({ data, userCart, toggleCart, toggleShippingWindow, removeFromCart, clearCart }) => {
 
   const clickToCloseCartWindow = (e) => {
     if (e.target.classList.contains('cart-pane')) {
@@ -33,7 +35,12 @@ const Cart = ({ data, userCart, toggleCart, toggleShippingWindow, removeFromCart
   return (
     <div className="cart-pane" onClick={clickToCloseCartWindow}>
       <div className="cart-window animate__animated animate__slideInRight">
-        <h3>Cart</h3>
+        <h3 className="cart-title">Cart</h3>
+        <FontAwesomeIcon
+          icon={faTrash}
+          className="clear-cart-icon"
+          onClick={clearCart}
+        />
         <div className="cart-display">
           {createUserCartKeysArray().map((item) => (
             <CartItemCard

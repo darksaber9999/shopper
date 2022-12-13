@@ -47,6 +47,7 @@ const ItemCard = ({ data, addToCart }) => {
           <span className="item-quantity">{quantity} left!</span>
         </p>
         <button
+          className="add-to-cart-button"
           data-category={category}
           data-item={name}
           data-product={id}

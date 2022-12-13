@@ -130,6 +130,7 @@ class ShopperWindow extends React.Component {
       case 'city':
       case 'state':
       case 'country':
+      case 'shippingMethod':
       case 'expiryMonth':
       case 'expiryYear':
         errorText = undefined;
@@ -253,7 +254,21 @@ class ShopperWindow extends React.Component {
     }));
   }
 
-  addToCart = (item) => this.setState((prevState) => ({ userCart: prevState.userCart.set(item, (prevState.userCart.has(item) ? (prevState.userCart.get(item) + 1) : 1)) }));
+  animateAddToCartMessage = (item) => {
+    for (const button of document.getElementsByClassName('add-to-cart-button')) {
+      if (button.dataset.product === item) {
+        button.innerHTML = 'Item Added';
+        setTimeout(() => button.innerHTML = 'Add to Cart', 1000);
+      }
+    }
+  };
+
+  addToCart = (item) => this.setState((prevState) => {
+    this.animateAddToCartMessage(item);
+    return {
+      userCart: prevState.userCart.set(item, (prevState.userCart.has(item) ? (prevState.userCart.get(item) + 1) : 1)),
+    }
+  });
 
   removeFromCart = (item) => this.setState((prevState) => {
     prevState.userCart.delete(item);
@@ -274,6 +289,16 @@ class ShopperWindow extends React.Component {
 
   clearCart = () => this.setState((prevState) => ({ userCart: new Map() }));
 
+  setCartQuantity = () => {
+    let total = 0;
+    this.state.userCart.forEach((value) => total += value);
+    document.getElementById('cart-quantity').innerHTML = total;
+  };
+
+  componentDidUpdate = () => {
+    this.setCartQuantity();
+  };
+
   render() {
     const { display: { store, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories, currentUsers, userLoggedIn, userCart, cardType } = this.state;
 
@@ -292,6 +317,7 @@ class ShopperWindow extends React.Component {
               icon={faShoppingCart}
               onClick={this.toggleCart}
             />
+            <span id="cart-quantity">0</span>
           </span>
         </header>
         <div className="component-window">
@@ -356,6 +382,7 @@ class ShopperWindow extends React.Component {
               toggleCart={this.toggleCart}
               toggleShippingWindow={this.toggleShippingWindow}
               removeFromCart={this.removeFromCart}
+              clearCart={this.clearCart}
             />
             : null}
         </div>
