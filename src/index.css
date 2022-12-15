@@ -252,3 +252,13 @@ label[for='cardNumber'] {
   font-size: 60px;
   color: green;
 }
+
+/* To attempt to keep iOS devices from auto-zooming on form fields. */
+@supports (-webkit-overflow-scrolling: touch) {
+
+  input,
+  select,
+  button {
+    font-size: 16px;
+  }
+}
