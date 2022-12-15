@@ -9,14 +9,17 @@ const ItemCard = ({ data, toggleItemDetails, setDisplayedItem, addToCart }) => {
 
   const toggleItemInfoDisplay = (e) => {
     setDisplayedItem(id);
-    if (!isEmpty(e.target.dataset)) {
-      e.type === 'mouseenter' ?
-        document.getElementById(`${e.target.dataset.category.toLowerCase()}-${e.target.dataset.item.toLowerCase()}-info`).classList.add('displayed') :
-        document.getElementById(`${e.target.dataset.category.toLowerCase()}-${e.target.dataset.item.toLowerCase()}-info`).classList.remove('displayed');
-    }
+    e.type === 'mouseenter' ?
+      document.getElementById(stringID).classList.add('displayed') :
+      document.getElementById(stringID).classList.remove('displayed');
   }
 
   const toggleAddToCart = (e) => addToCart(e.target.dataset.product);
+
+  const handleInfoButtonClick = () => {
+    document.getElementById(stringID).classList.remove('displayed');
+    toggleItemDetails();
+  }
 
   return (
     <div
@@ -62,7 +65,7 @@ const ItemCard = ({ data, toggleItemDetails, setDisplayedItem, addToCart }) => {
         <FontAwesomeIcon
           icon={faCircleInfo}
           className="item-info-icon"
-          onClick={toggleItemDetails}
+          onClick={handleInfoButtonClick}
         />
       </div>
     </div >
