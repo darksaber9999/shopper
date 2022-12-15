@@ -1,13 +1,19 @@
 import React from "react";
+import { isEmpty } from "../validations";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ItemCard = ({ data, addToCart }) => {
+const ItemCard = ({ data, toggleItemDetails, setDisplayedItem, addToCart }) => {
   const { name, price, quantity, image, category, id } = data;
   const stringID = `${category.toLowerCase()}-${name.toLowerCase()}-info`;
 
   const toggleItemInfoDisplay = (e) => {
-    e.type === 'mouseenter' ?
-      document.getElementById(`${e.target.dataset.category.toLowerCase()}-${e.target.dataset.item.toLowerCase()}-info`).classList.add('displayed') :
-      document.getElementById(`${e.target.dataset.category.toLowerCase()}-${e.target.dataset.item.toLowerCase()}-info`).classList.remove('displayed');
+    setDisplayedItem(id);
+    if (!isEmpty(e.target.dataset)) {
+      e.type === 'mouseenter' ?
+        document.getElementById(`${e.target.dataset.category.toLowerCase()}-${e.target.dataset.item.toLowerCase()}-info`).classList.add('displayed') :
+        document.getElementById(`${e.target.dataset.category.toLowerCase()}-${e.target.dataset.item.toLowerCase()}-info`).classList.remove('displayed');
+    }
   }
 
   const toggleAddToCart = (e) => addToCart(e.target.dataset.product);
@@ -53,6 +59,11 @@ const ItemCard = ({ data, addToCart }) => {
           data-product={id}
           onClick={toggleAddToCart}
         >Add to Cart</button>
+        <FontAwesomeIcon
+          icon={faCircleInfo}
+          className="item-info-icon"
+          onClick={toggleItemDetails}
+        />
       </div>
     </div >
   )

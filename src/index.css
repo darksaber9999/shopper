@@ -46,7 +46,8 @@ header {
 .logout-window,
 .shipping-display,
 .payment-display,
-.confirm-display {
+.confirm-display,
+.item-display {
   background-color: rgba(128, 128, 128, 0.4);
   border-radius: 16px;
   padding: 7px 12px;
@@ -91,6 +92,14 @@ header {
 
 .item-info-wrapper h3 {
   margin: 8px 0 0;
+  position: relative;
+}
+
+.item-info-icon {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  font-size: 28px;
 }
 
 .item-info-wrapper p {
@@ -109,21 +118,26 @@ header {
 .cart-pane,
 .shipping-pane,
 .payment-pane,
-.confirm-pane {
+.confirm-pane,
+.item-pane {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  ;
+}
+
+.item-details-image {
+  width: 100%;
 }
 
 .auth-window,
 .cart-window,
 .shipping-window,
 .payment-window,
-.confirm-window {
+.confirm-window,
+.item-window {
   background-color: black;
   border-radius: 16px;
   padding: 7px 12px;
@@ -164,13 +178,15 @@ header {
 .auth-window,
 .shipping-window,
 .payment-window,
-.confirm-window {
+.confirm-window,
+.item-window {
   margin: auto;
 }
 
 .auth-window,
 .payment-window,
-.confirm-window {
+.confirm-window,
+.item-window {
   top: 35%;
 }
 

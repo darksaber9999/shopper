@@ -1,5 +1,6 @@
 import React from "react";
 import Store from "../components/Store";
+import ItemDetails from "./ItemDetails";
 import Cart from "../components/Cart";
 import AuthWindow from "../components/AuthWindow";
 import Shipping from "../components/Shipping";
@@ -20,6 +21,7 @@ class ShopperWindow extends React.Component {
     errorMessage: {},
     data: [],
     categories: [],
+    displayedItem: '',
     currentUsers: [
       TEST_USER,
     ],
@@ -80,6 +82,8 @@ class ShopperWindow extends React.Component {
 
   toggleDisplay = (name) => this.setState((prevState) => ({ display: { ...prevState.display, [name]: !prevState.display[name] } }));
 
+  toggleItemDetails = () => this.toggleDisplay('itemDetails');
+
   toggleCart = () => this.toggleDisplay('cart');
 
   toggleAuthWindow = () => this.toggleDisplay('authWindow');
@@ -89,6 +93,10 @@ class ShopperWindow extends React.Component {
   togglePaymentWindow = () => this.toggleDisplay('payment');
 
   toggleConfirmWindow = () => this.toggleDisplay('confirm');
+
+  setDisplayedItem = (item) => this.setState((prevState) => ({
+    displayedItem: item,
+  }));
 
   createEventArray = (e) => {
     const eventArray = [];
@@ -300,7 +308,7 @@ class ShopperWindow extends React.Component {
   };
 
   render() {
-    const { display: { store, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories, currentUsers, userLoggedIn, userCart, cardType } = this.state;
+    const { display: { store, itemDetails, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories, displayedItem, currentUsers, userLoggedIn, userCart, cardType } = this.state;
 
     return (
       <>
@@ -327,7 +335,16 @@ class ShopperWindow extends React.Component {
               data={data}
               error={error}
               categories={categories}
+              toggleItemDetails={this.toggleItemDetails}
+              setDisplayedItem={this.setDisplayedItem}
               addToCart={this.addToCart}
+            />
+            : null}
+          {itemDetails ?
+            <ItemDetails
+              data={data}
+              displayedItem={displayedItem}
+              toggleItemDetails={this.toggleItemDetails}
             />
             : null}
           {authWindow ?
