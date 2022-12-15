@@ -1,5 +1,4 @@
 import React from "react";
-import { isEmpty } from "../validations";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

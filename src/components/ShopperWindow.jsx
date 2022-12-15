@@ -345,6 +345,7 @@ class ShopperWindow extends React.Component {
               data={data}
               displayedItem={displayedItem}
               toggleItemDetails={this.toggleItemDetails}
+              addToCart={this.addToCart}
             />
             : null}
           {authWindow ?
