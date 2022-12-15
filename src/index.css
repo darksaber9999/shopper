@@ -182,7 +182,6 @@ header {
 .confirm-window,
 .item-window {
   margin: auto;
-  top: 100px;
 }
 
 .auth-window-switcher {
