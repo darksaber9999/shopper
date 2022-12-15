@@ -77,33 +77,32 @@ const Shipping = ({ errorMessage, toggleShippingWindow, togglePaymentWindow, cre
                 </div>
               </label>
             )) : null}
-          </div>
-          <h3>Shipping Method</h3>
-          <div className="shipping-display shipping-window-switcher">
-            {shippingInputData.length ? shippingInputData.map((item) => (
-              <label
-                key={item.key}
-                htmlFor={item.id}
-              >
-                <select
-                  id={item.id}
-                  autoComplete="off"
-                  name={item.name}
-                  onBlur={handleBlur}
+            <div className="shipping-window-switcher">
+              {shippingInputData.length ? shippingInputData.map((item) => (
+                <label
+                  key={item.key}
+                  htmlFor={item.id}
                 >
-                  {item.option.map((num) => (
-                    <option key={num} value={num}>{num}</option>
-                  ))}
-                </select>
-                <span className="error-message">
-                  {(errorMessage
-                    && errorMessage[item.error]
-                    && errorMessage[item.error].length > 1)
-                    ? errorMessage[item.error]
-                    : null}
-                </span>
-              </label>
-            )) : null}
+                  <select
+                    id={item.id}
+                    autoComplete="off"
+                    name={item.name}
+                    onBlur={handleBlur}
+                  >
+                    {item.option.map((num) => (
+                      <option key={num} value={num}>{num}</option>
+                    ))}
+                  </select>
+                  <span className="error-message">
+                    {(errorMessage
+                      && errorMessage[item.error]
+                      && errorMessage[item.error].length > 1)
+                      ? errorMessage[item.error]
+                      : null}
+                  </span>
+                </label>
+              )) : null}
+            </div>
           </div>
           <input type="submit" value="Payment" />
         </form>
