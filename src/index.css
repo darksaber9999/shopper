@@ -126,6 +126,8 @@ header {
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
 }
 
 .item-details-image {
@@ -147,7 +149,6 @@ header {
 
 .cart-window {
   margin-left: auto;
-  top: 100px;
 }
 
 .cart-title {
