@@ -181,13 +181,7 @@ header {
 .confirm-window,
 .item-window {
   margin: auto;
-}
-
-.auth-window,
-.payment-window,
-.confirm-window,
-.item-window {
-  top: 35%;
+  top: 100px;
 }
 
 .auth-window-switcher {
@@ -197,10 +191,6 @@ header {
 .auth-window-switcher label,
 .shipping-window-switcher label {
   margin: 0 10px;
-}
-
-.shipping-window {
-  top: 30%;
 }
 
 form {
