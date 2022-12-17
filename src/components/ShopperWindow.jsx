@@ -297,10 +297,20 @@ class ShopperWindow extends React.Component {
 
   clearCart = () => this.setState((prevState) => ({ userCart: new Map() }));
 
-  setCartQuantity = () => {
+  getCartQuantity = () => {
     let total = 0;
     this.state.userCart.forEach((value) => total += value);
-    document.getElementById('cart-quantity').innerHTML = total;
+    return total;
+  };
+
+  setHeaderCartQuantity = () => document.getElementById('cart-quantity').innerHTML = this.getCartQuantity();
+
+  getCartTotal = () => {
+    let total = 0;
+    this.state.userCart.forEach((value, key) => {
+      total += Number(this.state.data.filter((item) => item.id === key)[0].price) * value;
+    });
+    return total;
   };
 
   disableCheckoutButton = () => {
@@ -310,7 +320,7 @@ class ShopperWindow extends React.Component {
   };
 
   componentDidUpdate = () => {
-    this.setCartQuantity();
+    this.setHeaderCartQuantity();
     this.disableCheckoutButton();
   };
 
@@ -408,6 +418,8 @@ class ShopperWindow extends React.Component {
               toggleShippingWindow={this.toggleShippingWindow}
               removeFromCart={this.removeFromCart}
               clearCart={this.clearCart}
+              getCartQuantity={this.getCartQuantity}
+              getCartTotal={this.getCartTotal}
             />
             : null}
         </div>

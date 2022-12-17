@@ -14,7 +14,7 @@ const CartItemCard = ({ data, product, removeFromCart }) => {
           <FontAwesomeIcon icon={faXmark} onClick={handleRemoveFromCart} />
           <span className="cart-item-name">{cartItem.name}</span>
           <span className="cart-item-quantity">Qty: {product.quantity}</span>
-          <span className="cart-item-total">${(cartItem.price * product.quantity)}</span>
+          <span className="cart-item-total">${(cartItem.price * product.quantity).toFixed(2)}</span>
         </div>
       ))}
     </>

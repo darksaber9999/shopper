@@ -177,6 +177,14 @@ header {
   border-bottom: 1px solid white;
 }
 
+.cart-total-wrapper .total-cart-quantity {
+  margin-right: 20px;
+}
+
+.cart-total-wrapper .cart-total {
+  margin-left: 20px;
+}
+
 .auth-window-switcher {
   margin-bottom: 5px;
 }

@@ -3,7 +3,9 @@ import CartItemCard from "./CartItemCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const Cart = ({ data, userCart, toggleCart, toggleShippingWindow, removeFromCart, clearCart }) => {
+const Cart = ({ data, userCart, toggleCart, toggleShippingWindow, removeFromCart, clearCart, getCartQuantity, getCartTotal }) => {
+  const cartQuantity = getCartQuantity();
+  const cartTotal = getCartTotal();
 
   const clickToCloseCartWindow = (e) => {
     if (e.target.classList.contains('cart-pane')) {
@@ -50,6 +52,10 @@ const Cart = ({ data, userCart, toggleCart, toggleShippingWindow, removeFromCart
               removeFromCart={removeFromCart}
             />
           ))}
+          <div className="cart-total-wrapper">
+            <span className="total-cart-quantity">Qty: {cartQuantity}</span>
+            <span className="cart-total">Total: ${cartTotal.toFixed(2)}</span>
+          </div>
         </div>
         <button id="checkout-button" onClick={handleCheckout}>Checkout</button>
       </div>
