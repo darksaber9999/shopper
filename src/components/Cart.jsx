@@ -51,7 +51,7 @@ const Cart = ({ data, userCart, toggleCart, toggleShippingWindow, removeFromCart
             />
           ))}
         </div>
-        <button onClick={handleCheckout}>Checkout</button>
+        <button id="checkout-button" onClick={handleCheckout}>Checkout</button>
       </div>
     </div>
   )

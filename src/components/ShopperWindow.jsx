@@ -303,8 +303,15 @@ class ShopperWindow extends React.Component {
     document.getElementById('cart-quantity').innerHTML = total;
   };
 
+  disableCheckoutButton = () => {
+    if (this.state.display.cart && this.state.userCart.size === 0) {
+      document.getElementById('checkout-button').setAttribute('disabled', true);
+    }
+  };
+
   componentDidUpdate = () => {
     this.setCartQuantity();
+    this.disableCheckoutButton();
   };
 
   render() {
