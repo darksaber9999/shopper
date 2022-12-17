@@ -31,6 +31,15 @@ const Shipping = ({ errorMessage, toggleShippingWindow, togglePaymentWindow, cre
 
   const handleBlur = ({ target: { name, value } }) => handleValidations(name, value);
 
+  const applyPhoneNumberMask = (e) => {
+    const tempValue = e.target.value.split('-').join('');
+    if (tempValue.length > 6) {
+      e.target.value = `${tempValue.substr(0, 3)}-${tempValue.substr(3, 3)}-${tempValue.substr(6)}`;
+    } else if (tempValue.length > 3) {
+      e.target.value = `${tempValue.substr(0, 3)}-${tempValue.substr(3)}`;
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const eventArray = createEventArray(e);
@@ -67,6 +76,7 @@ const Shipping = ({ errorMessage, toggleShippingWindow, togglePaymentWindow, cre
                   pattern={item.pattern ? item.pattern : null}
                   onBlur={handleBlur}
                   maxLength={item.maxLength ? item.maxLength : null}
+                  onChange={item.id === 'phoneNumber' ? applyPhoneNumberMask : null}
                 />
                 <div className="error-message">
                   {(errorMessage
