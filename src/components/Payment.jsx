@@ -2,7 +2,8 @@ import React from "react";
 import { CARD, CARD_ICON, OTHER_CARDS } from "../constants";
 import { checkErrorBeforeSave, isEmpty } from "../validations";
 
-const Payment = ({ errorMessage, cardType, togglePaymentWindow, toggleConfirmWindow, createEventArray, createEventObject, handleValidations, addUserPaymentInfo }) => {
+const Payment = ({ errorMessage, cardType, togglePaymentWindow, toggleConfirmWindow, createEventArray, createEventObject, handleValidations, addUserPaymentInfo, getCartTotal }) => {
+  const cartTotal = getCartTotal();
 
   const inputData = [
     { key: 1, id: 'cardholderName', label: 'Cardholder Name', name: 'cardholderName', type: 'text', error: 'cardholderNameError' },
@@ -10,8 +11,8 @@ const Payment = ({ errorMessage, cardType, togglePaymentWindow, toggleConfirmWin
     { key: 3, id: 'securityCode', label: 'Security Code/CVV', name: 'securityCode', type: 'text', error: 'securityCodeError', maxLength: 4 },
   ];
 
-  const option1 = ['Months', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-  const option2 = ['Years', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2010'];
+  const option1 = ['Expiration Month', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+  const option2 = ['Expiration Year', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2010'];
 
   const selectData = [
     { key: 21, id: 'expiryMonth', name: 'expiryMonth', option: option1, error: 'expiryMonthError' },
@@ -109,7 +110,7 @@ const Payment = ({ errorMessage, cardType, togglePaymentWindow, toggleConfirmWin
                 </label>
               )) : null}
             </div>
-            <input type="submit" value={`Pay $${'0.00'}`} />
+            <input type="submit" value={`Pay $${cartTotal.toFixed(2)}`} />
           </div>
         </form>
 

@@ -402,6 +402,7 @@ class ShopperWindow extends React.Component {
               createEventObject={this.createEventObject}
               handleValidations={this.handleValidations}
               addUserPaymentInfo={this.addUserPaymentInfo}
+              getCartTotal={this.getCartTotal}
             />
             : null}
           {confirm ?
