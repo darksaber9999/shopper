@@ -30,6 +30,13 @@ const Payment = ({ errorMessage, cardType, togglePaymentWindow, toggleConfirmWin
 
   const handleBlur = ({ target: { name, value } }) => handleValidations(name, value);
 
+  const applyCreditCardNumberMask = (e) => {
+    const tempValue = e.target.value.split(' ').join('');
+    if (tempValue.length) {
+      e.target.value = tempValue.match(new RegExp('.{1,4}', 'g')).join(' ');
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const eventArray = createEventArray(e);
@@ -67,6 +74,7 @@ const Payment = ({ errorMessage, cardType, togglePaymentWindow, toggleConfirmWin
                   name={item.name}
                   onBlur={handleBlur}
                   maxLength={item.maxLength ? item.maxLength : null}
+                  onChange={item.id === 'cardNumber' ? applyCreditCardNumberMask : null}
                 />
                 <div className="error-message">
                   {(errorMessage
