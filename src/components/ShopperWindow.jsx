@@ -277,8 +277,9 @@ class ShopperWindow extends React.Component {
 
   addToCart = (item) => this.setState((prevState) => {
     this.animateAddToCartMessage(item);
+    const tempQuantity = (prevState.userCart.has(item) ? (prevState.userCart.get(item) + 1) : 1);
     return {
-      userCart: prevState.userCart.set(item, (prevState.userCart.has(item) ? (prevState.userCart.get(item) + 1) : 1)),
+      userCart: prevState.userCart.set(item, tempQuantity),
     }
   });
 
@@ -290,12 +291,14 @@ class ShopperWindow extends React.Component {
   });
 
   changeQuantity = (method, item) => this.setState((prevState) => {
+    const tempQuantity = (method === 'add') ? prevState.userCart.get(item) + 1 : prevState.userCart.get(item) - 1;
+    if (tempQuantity === 0) {
+      prevState.userCart.delete(item);
+    }
     return {
-      userCart: (method === 'add') ?
-        prevState.userCart.set(item, prevState.userCart.get(item) + 1) :
-        (prevState.userCart.get(item) === 1) ?
-          prevState.userCart.delete(item) :
-          prevState.userCart.set(item, prevState.userCart.get(item) - 1),
+      userCart: (tempQuantity === 0) ?
+        prevState.userCart :
+        prevState.userCart.set(item, tempQuantity),
     }
   });
 
