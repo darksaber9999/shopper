@@ -265,8 +265,12 @@ class ShopperWindow extends React.Component {
   animateAddToCartMessage = (item) => {
     for (const button of document.getElementsByClassName('add-to-cart-button')) {
       if (button.dataset.product === item) {
+        button.setAttribute('disabled', true);
         button.innerHTML = 'Item Added';
-        setTimeout(() => button.innerHTML = 'Add to Cart', 1000);
+        setTimeout(() => {
+          button.innerHTML = 'Add to Cart'
+          button.removeAttribute('disabled');
+        }, 1000);
       }
     }
   };
