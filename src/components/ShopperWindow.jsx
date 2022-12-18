@@ -9,7 +9,7 @@ import Confirm from "../components/Confirm";
 import CommerceService from "../services";
 import { INITIAL_DISPLAY, TEST_USER } from "../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart, faArrowRightToBracket, faSort, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { cardNumberValidation, checkForDuplicateUser, onlyNumbersValidation, onlyTextValidation, passwordMatchValidation, securityCodeValidation } from "../validations";
 
 const commerce = new CommerceService();
@@ -331,6 +331,16 @@ class ShopperWindow extends React.Component {
       <>
         <header>
           <span>Shopper</span>
+          <span>
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+            />
+          </span>
+          <span>
+            <FontAwesomeIcon
+              icon={faSort}
+            />
+          </span>
           <span>
             <FontAwesomeIcon
               icon={faArrowRightToBracket}
