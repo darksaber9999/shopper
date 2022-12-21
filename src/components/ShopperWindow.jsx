@@ -30,6 +30,7 @@ class ShopperWindow extends React.Component {
     cardType: '',
     shippingInfo: {},
     paymentInfo: {},
+    searchTerm: '',
   }
 
   setProductData = () => {
@@ -111,6 +112,39 @@ class ShopperWindow extends React.Component {
   setDisplayedItem = (item) => this.setState((prevState) => ({
     displayedItem: item,
   }));
+
+
+  getItemList = () => document.getElementsByClassName('item-card');
+
+  searchItems = (value) => {
+    const itemList = this.getItemList();
+
+    for (let item of itemList) {
+      const itemCategory = item.dataset.category.toLowerCase();
+      const itemName = item.dataset.item.toLowerCase()
+
+      if (itemCategory !== value) {
+        item.classList.add('hidden');
+      }
+      if (itemName !== value) {
+        item.classList.add('hidden');
+      }
+      if (itemCategory === value || itemName === value) {
+        item.classList.remove('hidden');
+      }
+      if (value === '') {
+        item.classList.remove('hidden');
+      }
+    }
+  }
+
+  handleChange = ({ target: { name, value } }) => {
+    const newValue = value.toLowerCase();
+    this.setState((prevState) => ({
+      [name]: newValue,
+    }));
+    name === 'searchTerm' && this.searchItems(newValue);
+  }
 
   sortCategories = (direction) => this.setState((prevState) => {
     const newArray = prevState.categories.sort((a, b) => (a.name > b.name) ? direction : ((b.name > a.name) ? -direction : 0));
@@ -370,7 +404,7 @@ class ShopperWindow extends React.Component {
   };
 
   render() {
-    const { display: { store, itemDetails, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories, displayedItem, currentUsers, userLoggedIn, userCart, cardType } = this.state;
+    const { display: { store, itemDetails, cart, authWindow, shipping, payment, confirm, login, signUp }, loading, error, errorMessage, data, categories, displayedItem, currentUsers, userLoggedIn, userCart, cardType, searchTerm } = this.state;
 
     return (
       <>
@@ -394,6 +428,8 @@ class ShopperWindow extends React.Component {
                 name="searchTerm"
                 id="searchTerm"
                 placeholder="Item Search..."
+                value={searchTerm}
+                onChange={this.handleChange}
               />
             </span>
           </span>
