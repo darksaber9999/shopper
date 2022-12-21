@@ -9,7 +9,7 @@ import Confirm from "../components/Confirm";
 import CommerceService from "../services";
 import { INITIAL_DISPLAY, TEST_USER } from "../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faArrowRightToBracket, faSort, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart, faArrowRightToBracket, faSort, faMagnifyingGlass, faXmark, faArrowUpAZ, faArrowDownAZ } from "@fortawesome/free-solid-svg-icons";
 import { cardNumberValidation, checkForDuplicateUser, onlyNumbersValidation, onlyTextValidation, passwordMatchValidation, securityCodeValidation } from "../validations";
 
 const commerce = new CommerceService();
@@ -80,6 +80,20 @@ class ShopperWindow extends React.Component {
     this.setCategoryData();
   };
 
+  toggleHeaderIcons = (elementId) => document.getElementById(elementId).classList.toggle('hidden');
+
+  toggleSearchDisplay = () => {
+    document.getElementsByClassName('header-search-wrapper')[0].classList.toggle('displayed');
+    this.toggleHeaderIcons('search-icon');
+    this.toggleHeaderIcons('search-icon-x');
+  };
+
+  toggleSortOptionsDisplay = () => {
+    document.getElementsByClassName('header-sort-options-wrapper')[0].classList.toggle('displayed');
+    this.toggleHeaderIcons('sort-icon');
+    this.toggleHeaderIcons('sort-icon-x');
+  };
+
   toggleDisplay = (name) => this.setState((prevState) => ({ display: { ...prevState.display, [name]: !prevState.display[name] } }));
 
   toggleItemDetails = () => this.toggleDisplay('itemDetails');
@@ -97,6 +111,30 @@ class ShopperWindow extends React.Component {
   setDisplayedItem = (item) => this.setState((prevState) => ({
     displayedItem: item,
   }));
+
+  sortCategories = (direction) => this.setState((prevState) => {
+    const newArray = prevState.categories.sort((a, b) => (a.name > b.name) ? direction : ((b.name > a.name) ? -direction : 0));
+    return {
+      categories: newArray,
+    }
+  });
+
+  sortItems = (direction) => this.setState((prevState) => {
+    const newArray = prevState.data.sort((a, b) => (a.name > b.name) ? direction : ((b.name > a.name) ? -direction : 0));
+    return {
+      data: newArray,
+    }
+  });
+
+  sortAToZ = () => {
+    this.sortCategories(1);
+    this.sortItems(1);
+  };
+
+  sortZToA = () => {
+    this.sortCategories(-1);
+    this.sortItems(-1);
+  };
 
   createEventArray = (e) => {
     const eventArray = [];
@@ -338,15 +376,47 @@ class ShopperWindow extends React.Component {
       <>
         <header>
           <span>Shopper</span>
-          <span>
+          <span className="header-search-button">
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
+              id="search-icon"
+              onClick={this.toggleSearchDisplay}
             />
+            <FontAwesomeIcon
+              icon={faXmark}
+              id="search-icon-x"
+              className="hidden"
+              onClick={this.toggleSearchDisplay}
+            />
+            <span className="header-search-wrapper">
+              <input
+                type="text"
+                name="searchTerm"
+                id="searchTerm"
+                placeholder="Item Search..."
+              />
+            </span>
           </span>
-          <span>
+          <span className="header-sort-button">
             <FontAwesomeIcon
               icon={faSort}
+              id="sort-icon"
+              onClick={this.toggleSortOptionsDisplay}
             />
+            <FontAwesomeIcon
+              icon={faXmark}
+              id="sort-icon-x"
+              className="hidden"
+              onClick={this.toggleSortOptionsDisplay}
+            />
+            <span className="header-sort-options-wrapper">
+              <button onClick={this.sortAToZ}>
+                <FontAwesomeIcon icon={faArrowUpAZ} />
+              </button>
+              <button onClick={this.sortZToA}>
+                <FontAwesomeIcon icon={faArrowDownAZ} />
+              </button>
+            </span>
           </span>
           <span>
             <FontAwesomeIcon
