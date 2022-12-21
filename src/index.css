@@ -219,14 +219,19 @@ header {
   height: 50vh;
   border-radius: 16px;
   margin-top: 5px;
+  overflow: scroll;
 }
 
 .cart-item {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 5px;
+  padding: 8px 0;
   margin-bottom: 15px;
   border-bottom: 1px solid white;
+}
+
+.cart-item:nth-of-type(1) {
+  margin-top: 10px;
 }
 
 .cart-total-wrapper .total-cart-quantity {

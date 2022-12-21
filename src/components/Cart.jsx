@@ -5,7 +5,9 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Cart = ({ data, userCart, toggleCart, toggleShippingWindow, removeFromCart, clearCart, getCartQuantity, getCartTotal }) => {
   const cartQuantity = getCartQuantity();
-  const cartTotal = getCartTotal();
+  const subTotal = getCartTotal();
+  const salesTax = subTotal * .029;
+  const cartTotal = subTotal + salesTax;
 
   const clickToCloseCartWindow = (e) => {
     if (e.target.classList.contains('cart-pane')) {
@@ -54,7 +56,9 @@ const Cart = ({ data, userCart, toggleCart, toggleShippingWindow, removeFromCart
           ))}
           <div className="cart-total-wrapper">
             <span className="total-cart-quantity">Qty: {cartQuantity}</span>
-            <span className="cart-total">Total: ${cartTotal.toFixed(2)}</span>
+            <span className="cart-total">Sub-Total: ${subTotal.toFixed(2)}</span>
+            <div>State Tax: ${salesTax.toFixed(2)}</div>
+            <div>Cart Total: ${cartTotal.toFixed(2)}</div>
           </div>
         </div>
         <button id="checkout-button" onClick={handleCheckout}>Checkout</button>
