@@ -1,7 +1,7 @@
 import React from "react";
 import CategoryRow from "./CategoryRow";
 
-const Store = ({ data, loading, error, categories, toggleItemDetails, setDisplayedItem, addToCart }) => {
+const Store = ({ data, loading, error, categories, userCart, toggleItemDetails, setDisplayedItem, addToCart }) => {
 
   return (
     <div className="store-window">
@@ -10,6 +10,7 @@ const Store = ({ data, loading, error, categories, toggleItemDetails, setDisplay
           category={item.name}
           key={item.id}
           data={data}
+          userCart={userCart}
           toggleItemDetails={toggleItemDetails}
           setDisplayedItem={setDisplayedItem}
           addToCart={addToCart}

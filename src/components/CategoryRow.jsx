@@ -1,7 +1,7 @@
 import React from "react";
 import ItemCard from "./ItemCard";
 
-const CategoryRow = ({ category, data, toggleItemDetails, setDisplayedItem, addToCart }) => {
+const CategoryRow = ({ category, data, userCart, toggleItemDetails, setDisplayedItem, addToCart }) => {
 
   return (
     <div className="category-row" data-category={category}>
@@ -11,6 +11,7 @@ const CategoryRow = ({ category, data, toggleItemDetails, setDisplayedItem, addT
           <ItemCard
             data={currentItem}
             key={currentItem.id}
+            userCart={userCart}
             toggleItemDetails={toggleItemDetails}
             setDisplayedItem={setDisplayedItem}
             addToCart={addToCart}

@@ -2,9 +2,10 @@ import React from "react";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ItemCard = ({ data, toggleItemDetails, setDisplayedItem, addToCart }) => {
+const ItemCard = ({ data, userCart, toggleItemDetails, setDisplayedItem, addToCart }) => {
   const { name, price, quantity, image, category, id } = data;
   const stringID = `${category.toLowerCase()}-${name.toLowerCase()}-info`;
+  const currentlyInCart = userCart.has(id) ? userCart.get(id) : 0;
 
   const toggleItemInfoDisplay = (e) => {
     setDisplayedItem(id);
@@ -52,7 +53,7 @@ const ItemCard = ({ data, toggleItemDetails, setDisplayedItem, addToCart }) => {
           data-item={name}
         >
           <span className="item-price">${price}</span>
-          <span className="item-quantity">{quantity} left!</span>
+          <span className="item-quantity">{quantity - currentlyInCart} left!</span>
         </p>
         <button
           className="add-to-cart-button"

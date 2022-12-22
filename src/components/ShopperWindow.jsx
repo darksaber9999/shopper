@@ -475,6 +475,7 @@ class ShopperWindow extends React.Component {
               data={data}
               error={error}
               categories={categories}
+              userCart={userCart}
               toggleItemDetails={this.toggleItemDetails}
               setDisplayedItem={this.setDisplayedItem}
               addToCart={this.addToCart}
@@ -484,6 +485,7 @@ class ShopperWindow extends React.Component {
             <ItemDetails
               data={data}
               displayedItem={displayedItem}
+              userCart={userCart}
               toggleItemDetails={this.toggleItemDetails}
               addToCart={this.addToCart}
             />

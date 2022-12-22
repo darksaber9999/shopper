@@ -1,6 +1,7 @@
 import React from "react";
 
-const ItemDetails = ({ data, displayedItem, toggleItemDetails, addToCart }) => {
+const ItemDetails = ({ data, displayedItem, userCart, toggleItemDetails, addToCart }) => {
+  const currentlyInCart = userCart.has(displayedItem) ? userCart.get(displayedItem) : 0;
 
   const clickToCloseItemDetails = (e) => {
     if (e.target.classList.contains('item-pane')) {
@@ -29,7 +30,7 @@ const ItemDetails = ({ data, displayedItem, toggleItemDetails, addToCart }) => {
               </div>
               <div className="item-transaction-info-wrapper">
                 <span className="item-price">${currentItem.price}</span>
-                <span className="item-quantity">{currentItem.quantity} available!</span>
+                <span className="item-quantity">{currentItem.quantity - currentlyInCart} available!</span>
               </div>
               <div>Category: {currentItem.category}</div>
               <p>{currentItem.description.replace(/(<([^>]+)>)/ig, '')}</p>
