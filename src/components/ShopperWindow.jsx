@@ -81,18 +81,18 @@ class ShopperWindow extends React.Component {
     this.setCategoryData();
   };
 
-  toggleHeaderIcons = (elementId) => document.getElementById(elementId).classList.toggle('hidden');
+  toggleHiddenIcons = (elementId) => document.getElementById(elementId).classList.toggle('hidden');
 
   toggleSearchDisplay = () => {
     document.getElementsByClassName('header-search-wrapper')[0].classList.toggle('displayed');
-    this.toggleHeaderIcons('search-icon');
-    this.toggleHeaderIcons('search-icon-x');
+    this.toggleHiddenIcons('search-icon');
+    this.toggleHiddenIcons('search-icon-x');
   };
 
   toggleSortOptionsDisplay = () => {
     document.getElementsByClassName('header-sort-options-wrapper')[0].classList.toggle('displayed');
-    this.toggleHeaderIcons('sort-icon');
-    this.toggleHeaderIcons('sort-icon-x');
+    this.toggleHiddenIcons('sort-icon');
+    this.toggleHiddenIcons('sort-icon-x');
   };
 
   toggleDisplay = (name) => this.setState((prevState) => ({ display: { ...prevState.display, [name]: !prevState.display[name] } }));
@@ -538,9 +538,11 @@ class ShopperWindow extends React.Component {
             <Cart
               data={data}
               userCart={userCart}
+              toggleHiddenIcons={this.toggleHiddenIcons}
               toggleCart={this.toggleCart}
               toggleShippingWindow={this.toggleShippingWindow}
               removeFromCart={this.removeFromCart}
+              changeQuantity={this.changeQuantity}
               clearCart={this.clearCart}
               getCartQuantity={this.getCartQuantity}
               getCartTotal={this.getCartTotal}

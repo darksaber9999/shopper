@@ -224,7 +224,9 @@ header {
 
 .cart-item {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   padding: 8px 0;
   margin-bottom: 15px;
   border-bottom: 1px solid white;
@@ -232,6 +234,28 @@ header {
 
 .cart-item:nth-of-type(1) {
   margin-top: 10px;
+}
+
+.caret-right,
+.caret-down {
+  font-size: 24px;
+}
+
+.cart-item-quantity-controls {
+  font-size: 24px;
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 6px 0 0 60px;
+}
+
+.cart-item-quantity-controls.hidden {
+  display: none;
+}
+
+.cart-item-quantity-button {
+  height: 30px;
 }
 
 .cart-total-wrapper .total-cart-quantity {
