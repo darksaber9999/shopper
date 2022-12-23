@@ -3,7 +3,7 @@ import CartItemCard from "./CartItemCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const Cart = ({ data, userCart, toggleHiddenIcons, toggleCart, toggleShippingWindow, removeFromCart, changeQuantity, clearCart, getCartQuantity, getCartTotal }) => {
+const Cart = ({ data, userCart, toggleHiddenIcons, toggleCart, toggleShippingWindow, isItemQuantityAvailable, removeFromCart, changeQuantity, clearCart, getCartQuantity, getCartTotal }) => {
   const cartQuantity = getCartQuantity();
   const subTotal = getCartTotal();
   const salesTax = subTotal * .029;
@@ -52,6 +52,7 @@ const Cart = ({ data, userCart, toggleHiddenIcons, toggleCart, toggleShippingWin
               data={data}
               product={item}
               toggleHiddenIcons={toggleHiddenIcons}
+              isItemQuantityAvailable={isItemQuantityAvailable}
               removeFromCart={removeFromCart}
               changeQuantity={changeQuantity}
             />

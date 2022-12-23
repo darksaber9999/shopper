@@ -3,7 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretRight, faMinus, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 
-const CartItemCard = ({ data, product, toggleHiddenIcons, removeFromCart, changeQuantity }) => {
+const CartItemCard = ({ data, product, toggleHiddenIcons, isItemQuantityAvailable, removeFromCart, changeQuantity }) => {
+
+  const productFilter = (item) => item.id === product.id;
 
   const toggleQuantityControls = (element) => {
     toggleHiddenIcons(`caret-right-${product.id}`);
@@ -17,12 +19,16 @@ const CartItemCard = ({ data, product, toggleHiddenIcons, removeFromCart, change
 
   const handleChangeQuantityRemove = () => changeQuantity('remove', product.id);
 
-  const handleChangeQuantityAdd = () => changeQuantity('add', product.id);
+  const handleChangeQuantityAdd = () => {
+    if (isItemQuantityAvailable(product.id)) {
+      changeQuantity('add', product.id);
+    }
+  };
 
 
   return (
     <>
-      {data.filter((item) => item.id === product.id).map((cartItem) => (
+      {data.filter(productFilter).map((cartItem) => (
         <div key={cartItem.id} className="cart-item" data-item={cartItem.id}>
           <FontAwesomeIcon
             icon={faCaretRight}

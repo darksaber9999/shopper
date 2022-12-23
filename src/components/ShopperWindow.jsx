@@ -334,11 +334,11 @@ class ShopperWindow extends React.Component {
     }));
   }
 
-  animateAddToCartMessage = (item) => {
+  animateAddToCartMessage = (item, isAddSuccessful) => {
     for (const button of document.getElementsByClassName('add-to-cart-button')) {
       if (button.dataset.product === item) {
         button.setAttribute('disabled', true);
-        button.innerHTML = 'Item Added';
+        button.innerHTML = isAddSuccessful ? 'Item Added' : 'Unable to Add Item';
         setTimeout(() => {
           button.innerHTML = 'Add to Cart'
           button.removeAttribute('disabled');
@@ -347,11 +347,22 @@ class ShopperWindow extends React.Component {
     }
   };
 
+  isItemQuantityAvailable = (targetId) => {
+    const currentlyInCart = this.state.userCart.has(targetId) ? this.state.userCart.get(targetId) : 0;
+    const availableQuantity = this.state.data.filter((item) => item.id === targetId)[0].quantity;
+    if (availableQuantity - currentlyInCart > 0) {
+      return true;
+    }
+    return false;
+  };
+
   addToCart = (item) => this.setState((prevState) => {
-    this.animateAddToCartMessage(item);
-    const tempQuantity = (prevState.userCart.has(item) ? (prevState.userCart.get(item) + 1) : 1);
-    return {
-      userCart: prevState.userCart.set(item, tempQuantity),
+    this.animateAddToCartMessage(item, this.isItemQuantityAvailable(item));
+    if (this.isItemQuantityAvailable(item)) {
+      const tempQuantity = (prevState.userCart.has(item) ? (prevState.userCart.get(item) + 1) : 1);
+      return {
+        userCart: prevState.userCart.set(item, tempQuantity),
+      }
     }
   });
 
@@ -543,6 +554,7 @@ class ShopperWindow extends React.Component {
               toggleHiddenIcons={this.toggleHiddenIcons}
               toggleCart={this.toggleCart}
               toggleShippingWindow={this.toggleShippingWindow}
+              isItemQuantityAvailable={this.isItemQuantityAvailable}
               removeFromCart={this.removeFromCart}
               changeQuantity={this.changeQuantity}
               clearCart={this.clearCart}
