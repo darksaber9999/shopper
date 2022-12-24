@@ -129,7 +129,7 @@ class ShopperWindow extends React.Component {
       if (itemName !== value) {
         item.classList.add('hidden');
       }
-      if (itemCategory === value || itemName === value) {
+      if (itemCategory.includes(value) || itemName.includes(value)) {
         item.classList.remove('hidden');
       }
       if (value === '') {
