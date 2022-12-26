@@ -339,7 +339,9 @@ class ShopperWindow extends React.Component {
       if (button.dataset.product === item) {
         button.setAttribute('disabled', true);
         button.innerHTML = isAddSuccessful ? 'Item Added' : 'Unable to Add Item';
+        button.style.color = isAddSuccessful ? 'green' : 'red';
         setTimeout(() => {
+          button.style.color = 'black';
           button.innerHTML = 'Add to Cart'
           button.removeAttribute('disabled');
         }, 1000);
