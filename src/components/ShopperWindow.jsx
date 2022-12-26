@@ -465,12 +465,12 @@ class ShopperWindow extends React.Component {
               </button>
             </span>
           </span>
-          <span onClick={this.toggleAuthWindow}>
+          <span className="header-auth-button" onClick={this.toggleAuthWindow}>
             <FontAwesomeIcon
               icon={faArrowRightToBracket}
             />
           </span>
-          <span onClick={this.toggleCart}>
+          <span className="header-cart-button" onClick={this.toggleCart}>
             <FontAwesomeIcon
               icon={faShoppingCart}
             />

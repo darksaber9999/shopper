@@ -59,9 +59,9 @@ const Cart = ({ data, userCart, toggleHiddenIcons, toggleCart, toggleShippingWin
           ))}
           <div className="cart-total-wrapper">
             <span className="total-cart-quantity">Qty: {cartQuantity}</span>
-            <span className="cart-total">Sub-Total: ${subTotal.toFixed(2)}</span>
-            <div>State Tax: ${salesTax.toFixed(2)}</div>
-            <div>Cart Total: ${cartTotal.toFixed(2)}</div>
+            <span className="cart-subtotal">Sub-Total: ${subTotal.toFixed(2)}</span>
+            <span className="cart-tax">State Tax: ${salesTax.toFixed(2)}</span>
+            <span className="cart-total">Cart Total: ${cartTotal.toFixed(2)}</span>
           </div>
         </div>
         <button id="checkout-button" onClick={handleCheckout}>Checkout</button>
