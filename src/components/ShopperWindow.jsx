@@ -113,7 +113,6 @@ class ShopperWindow extends React.Component {
     displayedItem: item,
   }));
 
-
   getItemList = () => document.getElementsByClassName('item-card');
 
   searchItems = (value) => {
@@ -193,9 +192,11 @@ class ShopperWindow extends React.Component {
       AMERICAN_EXPRESS: /^3[47][0-9]{5,}$/,
       DISCOVER: /^6(?:011|5[0-9]{2})[0-9]{3,}$/,
     };
+
     for (const card in regexPattern) {
       if (cardNumber.replace(/[^\d]/g, '').match(regexPattern[card])) return card;
     }
+
     return '';
   };
 
