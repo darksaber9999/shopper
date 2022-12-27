@@ -346,12 +346,21 @@ button {
 button,
 input[type="submit"] {
   background-color: lightblue;
-  border: 2px solid green
+  border: 2px solid green;
+  font-size: 20px;
 }
 
 button:hover,
-input[type="submit"]:hover {
-  box-shadow: 0px 0px 0px 4px black;
+button:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+  box-shadow: 0px 2px 0px 1px white;
+  margin-bottom: 3px;
+}
+
+.item-info-wrapper button:hover,
+.item-info-wrapper button:focus {
+  box-shadow: 0px 2px 0px 1px black;
 }
 
 .passwordEyeIcon {
