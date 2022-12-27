@@ -19,9 +19,17 @@ const CartItemCard = ({ data, product, toggleHiddenIcons, isItemQuantityAvailabl
 
   const handleChangeQuantityRemove = () => changeQuantity('remove', product.id);
 
-  const handleChangeQuantityAdd = () => {
+  const handleChangeQuantityAdd = (e) => {
     if (isItemQuantityAvailable(product.id)) {
       changeQuantity('add', product.id);
+    } else {
+      const element = (e.target.localName === 'button') ? e.target : (e.target.localName === 'svg') ? e.target.parentElement : e.target.parentElement.parentElement;
+      element.style.backgroundColor = 'red';
+      element.children[0].style.backgroundColor = 'red';
+      setTimeout(() => {
+        element.style.backgroundColor = 'lightblue';
+        element.children[0].style.backgroundColor = 'lightblue';
+      }, 1000);
     }
   };
 
